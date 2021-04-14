@@ -43,5 +43,18 @@ namespace webAPI.Controllers
                 return InternalServerError(ex);
             }
         }
+
+        [HttpPost]
+        public IHttpActionResult Post([FromBody] Person person) 
+        {
+            try
+            {
+
+            }
+            catch (Exception ex) 
+            {
+                return InternalServerError(ex);
+            }
+        }
     }
 }

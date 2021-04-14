@@ -46,15 +46,16 @@ namespace webAPI.Controllers
             }
         }
 
-        protected bool Excecute(string query, object parameters = null) 
+        protected bool Excecute(string query, object parameters = null, bool isSP = false)
         {
             if (string.IsNullOrWhiteSpace(query))
             {
                 throw new ArgumentException("Invalid query string for Excecute");
             }
-            using (var con = ConnectionFactory.GetConnection(_dbsp)) 
+            using (var con = ConnectionFactory.GetConnection(_dbsp))
             {
-                return con.Execute(query, parameters) > 0;
+                return con.Execute(query, parameters, 
+                    commandType: (isSP) ? CommandType.StoredProcedure : CommandType.Text) > 0;
             }
         }
     }
