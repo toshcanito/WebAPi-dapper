@@ -49,7 +49,8 @@ namespace webAPI.Controllers
         {
             try
             {
-
+                bool res = Excecute("", null, true);
+                return Ok(person);
             }
             catch (Exception ex) 
             {

@@ -13,14 +13,14 @@ namespace webAPI.Controllers
     {
         private string _dbsp = string.Empty;
 
-        public BaseController(string dbsp) 
+        public BaseController(string dbsp)
         {
             _dbsp = dbsp;
         }
 
         protected List<T> GetMultiple<T>(string query, object parameters = null)
         {
-            if (string.IsNullOrWhiteSpace(query)) 
+            if (string.IsNullOrWhiteSpace(query))
             {
                 throw new ArgumentException("Invalid query string for GetMultiple");
             }
@@ -32,13 +32,13 @@ namespace webAPI.Controllers
             }
         }
 
-        protected T GetSingle<T>(string query, object parameters = null) 
+        protected T GetSingle<T>(string query, object parameters = null)
         {
-            if (string.IsNullOrWhiteSpace(query)) 
+            if (string.IsNullOrWhiteSpace(query))
             {
                 throw new ArgumentException("Invalid query string for GetSingle");
             }
-            using (var con = ConnectionFactory.GetConnection(_dbsp)) 
+            using (var con = ConnectionFactory.GetConnection(_dbsp))
             {
                 con.Open();
                 T res = con.QueryFirstOrDefault<T>(query, parameters);
@@ -54,7 +54,7 @@ namespace webAPI.Controllers
             }
             using (var con = ConnectionFactory.GetConnection(_dbsp))
             {
-                return con.Execute(query, parameters, 
+                return con.Execute(query, parameters,
                     commandType: (isSP) ? CommandType.StoredProcedure : CommandType.Text) > 0;
             }
         }
