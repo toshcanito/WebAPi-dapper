@@ -45,14 +45,52 @@ namespace webAPI.Controllers
         }
 
         [HttpPost]
+        [Route("api/people/")]
         public IHttpActionResult Post([FromBody] Person person) 
         {
             try
             {
-                bool res = Excecute("", null, true);
-                return Ok(person);
+                bool res = Excecute("SP_PERSON_INFO",
+                    new
+                    {
+                        @name = person.name,
+                        @email = person.email,
+                        @phoneNumber = person.phoneNumber,
+                        @address = person.address
+                    }, true);
+                if (res) 
+                {
+                    return Ok(person);
+                }
+                return BadRequest("Error in processing person information");
             }
             catch (Exception ex) 
+            {
+                return InternalServerError(ex);
+            }
+        }
+        [HttpPut]
+        [Route("api/people/")]
+        public IHttpActionResult Put([FromBody] Person person)
+        {
+            try
+            {
+                bool res = Excecute("SP_PERSON_INFO",
+                    new
+                    {
+                        @id = person.id,
+                        @name = person.name,
+                        @email = person.email,
+                        @phoneNumber = person.phoneNumber,
+                        @address = person.address
+                    }, true);
+                if (res)
+                {
+                    return Ok(person);
+                }
+                return BadRequest("Error in processing person information");
+            }
+            catch (Exception ex)
             {
                 return InternalServerError(ex);
             }

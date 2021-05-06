@@ -54,8 +54,10 @@ namespace webAPI.Controllers
             }
             using (var con = ConnectionFactory.GetConnection(_dbsp))
             {
-                return con.Execute(query, parameters,
+                var res = con.Execute(query, parameters,
                     commandType: (isSP) ? CommandType.StoredProcedure : CommandType.Text) > 0;
+
+                return res;
             }
         }
     }

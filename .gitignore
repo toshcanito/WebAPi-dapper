@@ -1,2 +1,4 @@
 packages/
 .vs/
+webAPI/bin/
+webAPI/obj/
